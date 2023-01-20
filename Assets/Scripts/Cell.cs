@@ -9,7 +9,7 @@ public class Cell : MonoBehaviourPunCallbacks
         {
             _mass = value;
 
-            UpdateRadius();
+            Grow();
         }
     }
 
@@ -32,12 +32,18 @@ public class Cell : MonoBehaviourPunCallbacks
 
     private void Split()
     {
-        var newCell = GameObject.Instantiate(cellPrefab);
+        var spawnPosition = transform.position + movementDirection * circleCollider.radius;
+        var newCell = GameObject.Instantiate(cellPrefab, Quaternion.identity, spawnPosition);
+
+        var splitMass = mass / 2;
+
+        this.mass = newCell.mass = splitMass;
     }
 
-    private void UpdateRadius()
+    private void Grow()
     {
-        circleCollider.radius = mass / 10;
+        circleCollider.radius = mass / 2;
+        speed = 200 - mass;
     }
 
     private void FixedUpdate()
