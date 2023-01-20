@@ -12,9 +12,10 @@ public class Cell : MonoBehaviourPunCallbacks
             Grow();
         }
     }
+    private CellGroup cellGroup;
 
     [Inject]
-    public void Construct(CellController cellController)
+    public void Construct(CellController cellController, CellGroup cellGroup)
     {
         if (!photonView.IsMine)
             return;
@@ -24,8 +25,23 @@ public class Cell : MonoBehaviourPunCallbacks
 
         cellController.splitKeypressStream
             .Subscribe(_=> Split);
+
+
+        this.cellGroup = cellGroup;
     }
 
+    private void OnEnable()
+    {
+        if (!photonView.IsMine) return;
+
+        cellGroup.IncrementCellCount();
+    }
+    private void OnDisable()
+    {
+        if (!photonView.IsMine) return;
+
+        cellGroup.DecrementCellCount();
+    }
 
     private void SetDirection(Vector3 mousePosition)
     {
