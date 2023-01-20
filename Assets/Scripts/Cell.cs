@@ -51,12 +51,17 @@ public class Cell : MonoBehaviourPunCallbacks
 
     private void Split()
     {
-        var spawnPosition = transform.position + movementDirection * circleCollider.radius;
+        var spawnPosition = GetMembranePoint();
         var newCell = GameObject.Instantiate(cellPrefab, Quaternion.identity, spawnPosition);
 
         var splitMass = mass / 2;
 
         this.mass = newCell.mass = splitMass;
+    }
+
+    private Vector3 GetMembranePoint()
+    {
+        return transform.position + movementDirection * circleCollider.radius;
     }
 
     private void Grow()
