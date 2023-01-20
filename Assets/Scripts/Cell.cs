@@ -16,6 +16,9 @@ public class Cell : MonoBehaviourPunCallbacks
     [Inject]
     public void Construct(CellController cellController)
     {
+        if (!photonView.IsMine)
+            return;
+
         cellController.mousePositionStream
             .Subscribe(SetDirection);
 
