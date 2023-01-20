@@ -1,5 +1,9 @@
 public class Cell : MonoBehaviourPunCallbacks
 {
+    private float ejectMass = 1;
+    private float ejectMassThreshold = 3;
+    private float splitMassThreshold;
+    private float maxMass;
     private Vector3 movementDirection;
     private float _mass, speed;
     public float mass
@@ -26,6 +30,9 @@ public class Cell : MonoBehaviourPunCallbacks
         cellController.splitKeypressStream
             .Subscribe(_=> Split);
 
+        cellController.ejectKeypressStream
+            .Subscribe(_=> Eject);
+
 
         this.cellGroup = cellGroup;
     }
@@ -47,6 +54,20 @@ public class Cell : MonoBehaviourPunCallbacks
     {
         var direction = (mousePosition - transform.position).normalize;
         this.movementDirection = direction;
+    }
+
+    private void Eject()
+    {
+        if (mass < ejectMassThreshold)
+            return;
+
+        var spawnPosition = GetMembranePoint();
+
+        var newFood = GameObject.Instantiate(foodPrefab, Quaternion.identity, spawnPosition);
+
+        mass -= ejectMass;
+
+        newFood.mass = ejectMass;
     }
 
     private void Split()
