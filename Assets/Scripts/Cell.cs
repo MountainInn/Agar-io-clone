@@ -66,10 +66,10 @@ public class Cell : MonoBehaviourPunCallbacks
         cellGroup.DecrementCellCount();
         disposables.Clear();
     }
-
     private void SetDirection(Vector3 mousePosition)
     {
-        var direction = (mousePosition - transform.position).normalize;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        var direction = (mousePosition - transform.position).normalized;
         this.movementDirection = direction;
     }
 
