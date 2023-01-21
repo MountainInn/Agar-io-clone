@@ -111,7 +111,7 @@ public class Cell : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject is Cell otherCell)
+        if (collider.gameObject.TryGetComponent(out Cell otherCell))
         {
             if (otherCell.photonView.IsMine)
                 return;
@@ -122,10 +122,11 @@ public class Cell : MonoBehaviourPunCallbacks
                 GameObject.Destroy(otherCell.gameObject);
             }
         }
-        else if (collider.gameObject is Food food)
+        else if (collider.gameObject.TryGetComponent(out Food food))
         {
             this.mass += food.mass;
             GameObject.Destroy(food.gameObject);
         }
     }
 }
+
