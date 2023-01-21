@@ -22,20 +22,27 @@ public class Cell : MonoBehaviourPunCallbacks
     }
     private CellGroup cellGroup;
 
+    private CompositeDisposable disposables;
+
     [Inject]
     public void Construct(CellController cellController, CellGroup cellGroup)
     {
         if (!photonView.IsMine)
             return;
 
+        disposables = new CompositeDisposable();
+
         cellController.mousePositionStream
-            .Subscribe(SetDirection);
+            .Subscribe(SetDirection)
+            .AddTo(disposables);
 
         cellController.splitKeypressStream
-            .Subscribe(_=> Split);
+            .Subscribe(_ => Split())
+            .AddTo(disposables);
 
         cellController.ejectKeypressStream
-            .Subscribe(_=> Eject);
+            .Subscribe(_=> Eject())
+            .AddTo(disposables);
 
 
         this.cellGroup = cellGroup;
@@ -52,6 +59,7 @@ public class Cell : MonoBehaviourPunCallbacks
         if (!photonView.IsMine) return;
 
         cellGroup.DecrementCellCount();
+        disposables.Clear();
     }
 
     private void SetDirection(Vector3 mousePosition)
