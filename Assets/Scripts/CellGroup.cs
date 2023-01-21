@@ -6,6 +6,14 @@ public class CellGroup : MonoBehaviourPunCallbacks
 {
     private ushort cellCount;
 
+    private RoomManager roomManager;
+
+    [Inject]
+    public void Construct(RoomManager roomManager)
+    {
+        this.roomManager = roomManager;
+    }
+
     public void IncrementCellCount()
     {
         cellCount++;
@@ -16,13 +24,7 @@ public class CellGroup : MonoBehaviourPunCallbacks
 
         if (cellCount == 0)
         {
-            Debug.Log("You Lose!");
+            roomManager.LeaveRoom();
         }
-    }
-
-    [Inject]
-    public void Construct()
-    {
-
     }
 }
