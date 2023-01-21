@@ -112,7 +112,7 @@ public class Cell : MonoBehaviourPunCallbacks
 
     private void FixedUpdate()
     {
-        var step = movementDirection * speed * Time.fixedDelta;
+        var step = movementDirection * speed * Time.fixedDeltaTime;
         transform.position = transform.position + step;
     }
 
