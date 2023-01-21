@@ -80,7 +80,7 @@ public class Cell : MonoBehaviourPunCallbacks
 
         var spawnPosition = GetMembranePoint();
 
-        var newFood = GameObject.Instantiate(foodPrefab, Quaternion.identity, spawnPosition);
+        var newFood = GameObject.Instantiate(GetComponent<Food>(), spawnPosition, Quaternion.identity);
 
         mass -= ejectMass;
 
@@ -90,7 +90,7 @@ public class Cell : MonoBehaviourPunCallbacks
     private void Split()
     {
         var spawnPosition = GetMembranePoint();
-        var newCell = GameObject.Instantiate(cellPrefab, Quaternion.identity, spawnPosition);
+        var newCell = GameObject.Instantiate(GetComponent<Cell>(), spawnPosition, Quaternion.identity);
 
         var splitMass = mass / 2;
 
