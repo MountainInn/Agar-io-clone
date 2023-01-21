@@ -47,15 +47,16 @@ public class Cell : MonoBehaviourPunCallbacks
 
         this.cellGroup = cellGroup;
     }
-
-    private void OnEnable()
+    new private void OnEnable()
     {
+        base.OnEnable();
         if (!photonView.IsMine) return;
 
         cellGroup.IncrementCellCount();
     }
-    private void OnDisable()
+    new private void OnDisable()
     {
+        base.OnDisable();
         if (!photonView.IsMine) return;
 
         cellGroup.DecrementCellCount();
