@@ -1,4 +1,7 @@
-uisng UniRx;
+using System;
+using UnityEngine;
+using UniRx.Triggers;
+using UniRx;
 
 public class CellController : MonoBehaviour
 {

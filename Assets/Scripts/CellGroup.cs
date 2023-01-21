@@ -1,3 +1,7 @@
+using UnityEngine;
+using Photon.Pun;
+using Zenject;
+
 public class CellGroup : MonoBehaviourPunCallbacks
 {
     private ushort cellCount;

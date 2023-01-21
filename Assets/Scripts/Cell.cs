@@ -1,3 +1,7 @@
+using UnityEngine;
+using Zenject;
+using UniRx;
+using Photon.Pun;
 public class Cell : MonoBehaviourPunCallbacks
 {
     private float ejectMass = 1;
