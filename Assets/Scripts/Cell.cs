@@ -20,7 +20,11 @@ public class Cell : MonoBehaviourPunCallbacks
             Grow();
         }
     }
+    private float radius;
     private CellGroup cellGroup;
+
+    [SerializeField]
+    private CircleCollider2D foodCollider, cellCollider;
 
     private CompositeDisposable disposables;
 
@@ -95,12 +99,14 @@ public class Cell : MonoBehaviourPunCallbacks
 
     private Vector3 GetMembranePoint()
     {
-        return transform.position + movementDirection * circleCollider.radius;
+        return transform.position + movementDirection * radius;
     }
 
     private void Grow()
     {
-        circleCollider.radius = mass / 2;
+        radius = mass / 2;
+        foodCollider.radius = radius * .95f;
+        cellCollider.radius = radius * .85f;
         speed = 200 - mass;
     }
 
