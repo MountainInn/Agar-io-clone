@@ -113,7 +113,7 @@ public class Cell : MonoBehaviourPunCallbacks
         radius = mass / 2;
         foodCollider.radius = radius * .95f;
         cellCollider.radius = radius * .85f;
-        speed = 200 - mass;
+        speed = 2;
     }
 
     private void FixedUpdate()
