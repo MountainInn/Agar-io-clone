@@ -66,6 +66,12 @@ public class Cell : MonoBehaviourPunCallbacks
         cellGroup.DecrementCellCount();
         disposables.Clear();
     }
+
+    private void Awake()
+    {
+        Grow();
+    }
+
     private void SetDirection(Vector3 mousePosition)
     {
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
