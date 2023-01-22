@@ -74,9 +74,12 @@ public class Cell : MonoBehaviourPunCallbacks
 
     private void SetDirection(Vector3 mousePosition)
     {
+        var cameraPosition = Camera.main.transform.position;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        var direction = (mousePosition - transform.position).normalized;
-        this.movementDirection = direction;
+        mousePosition -= cameraPosition;
+        mousePosition.Scale(new Vector3(int.MaxValue, int.MaxValue, 0));
+        mousePosition.Normalize();
+        this.movementDirection = mousePosition;
     }
 
     private void Eject()
