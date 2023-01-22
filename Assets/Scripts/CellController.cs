@@ -1,4 +1,5 @@
 using System;
+using Zenject;
 using UnityEngine;
 using UniRx.Triggers;
 using UniRx;
@@ -9,7 +10,8 @@ public class CellController : MonoBehaviour
     public IObservable<bool> splitKeypressStream;
     public IObservable<bool> ejectKeypressStream;
 
-    public void Awake()
+    [Inject]
+    public void Construct()
     {
         mousePositionStream =
             this.UpdateAsObservable()
